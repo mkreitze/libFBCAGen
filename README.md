@@ -26,3 +26,21 @@ numOfStates=2 # (n)
 scoreMatrix = [1,2,3,4] # (S)
 ```
 It should be noted that the 'connectivity' described by F is too arbtirary to generate efficent code for. To get around this, F is considered by default to be a torus of 100 cells in width and 100 cells in length with each cell connected to its first degree Von Neumann neighbour. 
+
+Additionally, L_0 has not been defined yet as we need to define the data structres that represent cells and FBCA.
+
+# FBCA represntation
+class CACell:
+    state=0
+    score=0
+
+# FBCA data structure #
+
+As mentioned earlier, FBCA have five defining features. While these five defining features are required to specify a FBCA, it is also useful to know what the FBCA ends up as. This is represented by its L_g (more commonly known as its final image or _resulting level-map_). This leads to the following data structure being used to define a FBCA. 
+
+```python
+class Fbca:
+    levelMap=[]
+    scoreMatrix=[]
+    behaviourNum=0
+```
