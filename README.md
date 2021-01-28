@@ -34,20 +34,32 @@ class CACell:
     state=0
     score=0
 
-# FBCA data structure #
+# Data structures #
 
 As mentioned earlier, FBCA have five defining features. While these five defining features are required to specify a FBCA, it is also useful to know what the FBCA ends up as. This is represented by its L_g (more commonly known as its final image or _resulting level-map_). These levelmaps are usually classified into different 'behaviours' leading to a quantity known as behaviourNum to record which behaviour a level-map is similar to. This leads to the following data structure being used to define a FBCA. 
 
 ```python
+# FBCA data structure #
 class Fbca:
-    levelMap=[]
-    scoreMatrix=[]
-    behaviourNum=0
-    g = numOfGens
-    n = numOfStates
-    neighbourhood = neighbours
-    torusWidth = CAWidth
-    torusLength = CALength
+    levelMap=[] # L_g
+    scoreMatrix=[] # S
+    behaviourNum=0 # iso-behavioural identification 
+    # g = numOfGens
+    # n = numOfStates
+    # neighbourhood = neighbours
+    # torusWidth = CAWidth
+    # torusLength = CALength
 ```
 It should be noted that the final 5 parameters are almost always considered to be globally defined and are usually commented out to reduce computation times.
+
+Each cell of a FBCA requires also requires a data structure to store its score and current state, as shown below. 
+
+```python
+class CACell:
+    state=0
+    score=0
+```
+
+# FBCA (and cell) data structure #
+
 
