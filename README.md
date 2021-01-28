@@ -13,16 +13,16 @@ To properly define a FBCA, five parameters are required. As shown in (thesis plu
 - L_0 -> the inital random set of states
 
 For a 'default' FBCA the following parameters are used:
-
-CALength=100 
-CAWidth=100 
-neighbours=[]
-neighbours.append((0,1))
-neighbours.append((0,-1))
-neighbours.append((-1,0))
-neighbours.append((1,0)) 
-numOfGens=40 (g)
-numOfStates=2 (n)
-scoreMatrix = [1,2,3,4] (S)
-
+```python
+CALength=100  # (F)
+CAWidth=100 # (F)
+neighbours=[] # (F)
+neighbours.append((0,1)) # (F)
+neighbours.append((0,-1)) # (F)
+neighbours.append((-1,0)) # (F)
+neighbours.append((1,0)) # (F)
+numOfGens=40 # (g)
+numOfStates=2 # (n)
+scoreMatrix = [1,2,3,4] # (S)
+```
 It should be noted that the 'connectivity' described by F is too arbtirary to generate efficent code for. To get around this, F is considered by default to be a torus of 100 cells in width and 100 cells in length with each cell connected to its first degree Von Neumann neighbour. 
