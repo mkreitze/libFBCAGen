@@ -1,10 +1,10 @@
-# Preface
+# # Preface
 
 Fashion Based Cellular Automata (FBCA) are self organizing structures that are normal cellular automata with a governing rule set known as a score matrix. This score matrix allows a single cell of a FBCA to change its state to a nearby more desirable state by evaluating scores assigned to each cell. FBCAs have been found to be extremely useful for level-map genreation in videogames. This comes from an FBCA exhibiting local self organizing behaviour which, when paired with an inital random state, produce level-maps that have similar local behaviour but different overall configurations. FBCA were first defined (here). 
 
 # put example image here.
 
-# Initalizations
+# # Initalizations
 To properly define a FBCA, five parameters are required. As shown in (thesis plug), these parameters are: 
 - F -> connectivity of each cell in the FBCA (its neighbourhood).
 - g -> the number of updates done to an FBCA before completion 
@@ -27,14 +27,14 @@ scoreMatrix = [1,2,3,4] # (S)
 ```
 It should be noted that the 'connectivity' described by F is too arbtirary to generate efficent code for. To get around this, F is considered by default to be a torus of 100 cells in width and 100 cells in length with each cell connected to its first degree Von Neumann neighbour. 
 
-Additionally, L_0 has not been defined yet as we need to define the data structres that represent cells and FBCA.
+Additionally, L_0 has not been defined yet as we need to define the data structures for cells and FBCA as well as a generating function.
 
 # FBCA represntation
 class CACell:
     state=0
     score=0
 
-# Data structures #
+# # Data structures 
 
 As mentioned earlier, FBCA have five defining features. While these five defining features are required to specify a FBCA, it is also useful to know what the FBCA ends up as. This is represented by its L_g (more commonly known as its final image or _resulting level-map_). These levelmaps are usually classified into different 'behaviours' leading to a quantity known as behaviourNum to record which behaviour a level-map is similar to. This leads to the following data structure being used to define a FBCA. 
 
@@ -60,6 +60,7 @@ class CACell:
     score=0
 ```
 
-# FBCA (and cell) data structure #
+Now that we have defined our data structures and global constants, we can start defining functions.
 
+# # Functions
 
