@@ -3,25 +3,41 @@
 # # Records all functions and code used to generate FBCA
 # # Forcing myself to review code and publish code to GitHub
 
+# imports from external libraries
+import random
+import FBCAConsts # constants
 
-# Initalizations for FBCA generation:
-# F -> connectivity of each cell in the FBCA (its neighbourhood)
-# g -> the number of updates done to an FBCA before completion 
-# n -> number of states in the FBCA 
-# 
-numOfGens=40 #number of generations (g)
-numOfStates=2 #number of states (n) [defined till 10]
 
-# F
-# F is defined as a torus and needs parameters to define this
-CALength=100 #Length of torus (related to thickness of the torus) [for dB method use 5]
-CAWidth=100 #Width of torus (related to radius of the torus) [for dB method use 4]
-useMinMap=0 #honestly, something I have to fix
-# F's connectivity is arbitrary. It is assumed each cell has the same connectivity.
-# To represent the connectivity, a list of touples representing the x and y offset is needed
-# The default is Von Neumann and is defined below
-neighbours=[]
-neighbours.append((0,1))#top (1 up)
-neighbours.append((0,-1))#bot (1 down)
-neighbours.append((-1,0))#left (1 left)
-neighbours.append((1,0))#right (1 right)
+# L_0 generation #
+### Input: A list full of CACells (representing an empty FBCA)
+### Output: A list full of CACells with a pseudo-random collection of states
+# Notes:
+# L_0s are prefered to be constant for checking weak behavioural equivlance. 
+# To do this, simply call initCA once and use the copyOver function (other methods lead to data loss) 
+def initCA(CAMap,length = FBCAConsts.CALength, width = FBCAConsts.CAWidth):
+    #Fills in downward stripes as we interate x then y
+    for x in range(0,length):
+        holder=[] #downward column at the x value
+        for y in range(0,width):
+            holder.append(FBCAConsts.CACell()) #adds in a cell and randomizes its state
+            holder[y].state=random.randint(0,FBCAConsts.numOfStates-1)
+        CAMap.append(holder)
+    return(CAMap)
+
+# Copying function #
+### Input: A list full of CACells
+### Output: Another list full cells with the same states as the input
+# Notes:
+# The standard copy method loses data for a list of classes.
+def copyOver(CAMapInit,length = FBCAConsts.CALength, width = FBCAConsts.CAWidth):
+    CAMap=[]
+    for x in range(0,length):
+        holder=[]
+        for y in range(0,width):
+            holder.append(FBCAConsts.CACell())
+            holder[y].state=CAMapInit[x][y].state
+        CAMap.append(holder)
+    return(CAMap)
+
+
+            
