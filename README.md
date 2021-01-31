@@ -64,3 +64,34 @@ Now that we have defined our data structures and global constants, we can start 
 
 # # Functions
 
+The first function is the generation of an FBCAs inital conditions, known as its L_0. This is done through use of rand.randint to populate each cell with state from 0 to n-1. This leads to the standard representation of a level-map. Level-maps are a grid of states, represented by a 2D list, saved row wise.
+
+```python
+# Input: A list full of CACells (representing an empty FBCA)
+# Output: A list full of CACells with a pseudo-random collection of states
+def initCA(CAMap,length = FBCAConsts.CALength, width = FBCAConsts.CAWidth):
+    #Fills in downward stripes as we interate x then y
+    for x in range(0,length):
+        holder=[] #downward column at the x value
+        for y in range(0,width):
+            holder.append(FBCAConsts.CACell()) #adds in a cell and randomizes its state
+            holder[y].state=random.randint(0,FBCAConsts.numOfStates-1)
+        CAMap.append(holder)
+    return(CAMap)
+```
+# Example code 
+From testCodeCopyOver.py
+```python
+import FBCAConsts
+import libFBCAGen
+
+exFBCA = FBCAConsts.Fbca()
+print (f"1 -> {exFBCA.levelMap}")
+exFBCA.levelMap = libFBCAGen.initCA(exFBCA.levelMap,2,2)
+print (exFBCA.levelMap)
+```
+output: 
+```shell
+1 -> []
+[[<FBCAConsts.CACell object at 0x7fa3a4168080>, <FBCAConsts.CACell object at 0x7fa3a418b828>], [<FBCAConsts.CACell object at 0x7fa3a418ba90>, <FBCAConsts.CACell object at 0x7fa3a418bac8>]]
+```
