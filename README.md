@@ -62,8 +62,9 @@ class CACell:
 
 Now that we have defined our data structures and global constants, we can start defining functions.
 
-# # Functions
+# Functions
 
+ **initCA**
 The first function is the generation of an FBCAs inital conditions, known as its L_0. This is done through use of rand.randint to populate each cell with state from 0 to n-1. This leads to the standard representation of a level-map. Level-maps are a grid of states, represented by a 2D list, saved row wise.
 
 ```python
@@ -79,7 +80,7 @@ def initCA(CAMap,length = FBCAConsts.CALength, width = FBCAConsts.CAWidth):
         CAMap.append(holder)
     return(CAMap)
 ```
-# Example code 
+**Example code**
 From testCodeCopyOver.py
 ```python
 import FBCAConsts
@@ -95,3 +96,4 @@ output:
 1 -> []
 [[<FBCAConsts.CACell object at 0x7fa3a4168080>, <FBCAConsts.CACell object at 0x7fa3a418b828>], [<FBCAConsts.CACell object at 0x7fa3a418ba90>, <FBCAConsts.CACell object at 0x7fa3a418bac8>]]
 ```
+
