@@ -91,9 +91,46 @@ output:
 1 -> []
 [[<FBCAConsts.CACell object at 0x7fa3a4168080>, <FBCAConsts.CACell object at 0x7fa3a418b828>], [<FBCAConsts.CACell object at 0x7fa3a418ba90>, <FBCAConsts.CACell object at 0x7fa3a418bac8>]]
 ```
- **initCA**
+ **copyOver**
+This function is made to copy over a level-map, which is a 2D array of cells, from one location in memeory to another. While a multitude of common copying methods already exist, when implemented the level-maps would fail to copy properly. To get around this, a custom functino was made. It is not efficient. 
+
+```python
+# Input: A list full of CACells
+# Output: Another list full cells with the same states as the input
+def copyOver(CAMapInit,length = FBCAConsts.CALength, width = FBCAConsts.CAWidth):
+    CAMap=[]
+    for x in range(0,length):
+        holder=[]
+        for y in range(0,width):
+            holder.append(FBCAConsts.CACell())
+            holder[y].state=CAMapInit[x][y].state
+        CAMap.append(holder)
+    return(CAMap)
+```
 **Example code**
- **initCA**
+
+```python
+import FBCAConsts
+import libFBCAGen
+
+exFBCA1 = FBCAConsts.Fbca(); exFBCA2 = FBCAConsts.Fbca()
+print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}"); 
+exFBCA1.levelMap = libFBCAGen.initCA(exFBCA1.levelMap,2,2)
+print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}"); 
+exFBCA2.levelMap = libFBCAGen.copyOver(exFBCA1.levelMap,2,2)
+print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}"); 
+```
+Output: 
+``` shell
+1 -> []
+2 -> []
+1 -> [[<FBCAConsts.CACell object at 0x7f2aa1978208>, <FBCAConsts.CACell object at 0x7f2aa1978588>], [<FBCAConsts.CACell object at 0x7f2aa19785c0>, <FBCAConsts.CACell object at 0x7f2aa1978630>]]
+2 -> [[<FBCAConsts.CACell object at 0x7f2aa1978208>, <FBCAConsts.CACell object at 0x7f2aa1978588>], [<FBCAConsts.CACell object at 0x7f2aa19785c0>, <FBCAConsts.CACell object at 0x7f2aa1978630>]]
+1 -> [[<FBCAConsts.CACell object at 0x7f2aa1978208>, <FBCAConsts.CACell object at 0x7f2aa1978588>], [<FBCAConsts.CACell object at 0x7f2aa19785c0>, <FBCAConsts.CACell object at 0x7f2aa1978630>]]
+2 -> [[<FBCAConsts.CACell object at 0x7f2aa1982128>, <FBCAConsts.CACell object at 0x7f2aa1982160>], [<FBCAConsts.CACell object at 0x7f2aa1982f60>, <FBCAConsts.CACell object at 0x7f2aa1982a20>]]
+```
+
+**initCA**
 **Example code**
 **initCA**
 **Example code**
