@@ -4,7 +4,7 @@ Fashion Based Cellular Automata (FBCA) are self organizing structures that are n
 
 # put example image here.
 
-# # Initalizations
+# Initalizations
 To properly define a FBCA, five parameters are required. As shown in (thesis plug), these parameters are: 
 - F -> connectivity of each cell in the FBCA (its neighbourhood).
 - g -> the number of updates done to an FBCA before completion 
@@ -29,12 +29,7 @@ It should be noted that the 'connectivity' described by F is too arbtirary to ge
 
 Additionally, L_0 has not been defined yet as we need to define the data structures for cells and FBCA as well as a generating function.
 
-# FBCA represntation
-class CACell:
-    state=0
-    score=0
-
-# # Data structures 
+# FBCA representation  (FBCAConsts.py)
 
 As mentioned earlier, FBCA have five defining features. While these five defining features are required to specify a FBCA, it is also useful to know what the FBCA ends up as. This is represented by its L_g (more commonly known as its final image or _resulting level-map_). These levelmaps are usually classified into different 'behaviours' leading to a quantity known as behaviourNum to record which behaviour a level-map is similar to. This leads to the following data structure being used to define a FBCA. 
 
@@ -60,7 +55,7 @@ class CACell:
     score=0
 ```
 
-Now that we have defined our data structures and global constants, we can start defining functions.
+These data structures are used for most work with FBCAs and are contained within the file FBCAConsts.py and must be imported. Now that we have defined our data structures and global constants, we can start defining functions.
 
 # Functions
 
@@ -81,7 +76,7 @@ def initCA(CAMap,length = FBCAConsts.CALength, width = FBCAConsts.CAWidth):
     return(CAMap)
 ```
 **Example code**
-From testCodeCopyOver.py
+From initCA.py
 ```python
 import FBCAConsts
 import libFBCAGen
@@ -96,4 +91,9 @@ output:
 1 -> []
 [[<FBCAConsts.CACell object at 0x7fa3a4168080>, <FBCAConsts.CACell object at 0x7fa3a418b828>], [<FBCAConsts.CACell object at 0x7fa3a418ba90>, <FBCAConsts.CACell object at 0x7fa3a418bac8>]]
 ```
-
+ **initCA**
+**Example code**
+ **initCA**
+**Example code**
+**initCA**
+**Example code**
