@@ -59,6 +59,11 @@ These data structures are used for most work with FBCAs and are contained within
 
 # Functions
 
+To generate, visualize and save FBCA, a variety of functions are used. They are sorted by dependence/relevence on one another, and their order is as follows:
+initCA (FBCA initalization)
+copyOver (Custom copying function for FBCA data structure)
+updateFBCA (Updates FBCA once)
+
  **initCA**
 The first function is the generation of an FBCAs inital conditions, known as its L_0. This is done through use of rand.randint to populate each cell with state from 0 to n-1. This leads to the standard representation of a level-map. Level-maps are a grid of states, represented by a 2D list, saved row wise.
 
