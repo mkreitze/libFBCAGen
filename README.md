@@ -65,20 +65,20 @@ copyOver (Custom copying function for FBCA data structure)
 updateFBCA (Updates FBCA once)
 
  **initCA**
-The first function is the generation of an FBCAs inital conditions, known as its L_0. This is done through use of rand.randint to populate each cell with state from 0 to n-1. This leads to the standard representation of a level-map. Level-maps are a grid of states, represented by a 2D list, saved row wise.
+The first function is the generation of an FBCAs inital conditions, known as its L_0. This is done through use of rand.randint to populate each cell with state from 0 to n-1. This leads to the standard representation of a level-map. Level-maps are a grid of states, represented by a 2D list, saved row wise. This method is preferred to standard methods, as the representation for fbcas/cells does not do well with standard copying functions. 
 
 ```python
-# Input: A list full of CACells (representing an empty FBCA)
-# Output: A list full of CACells with a pseudo-random collection of states
-def initCA(CAMap,length = FBCAConsts.CALength, width = FBCAConsts.CAWidth):
+# Input: An FBCA 
+# Output: A level-map pseudo-random collection of states
+def initCA(fbca):
     #Fills in downward stripes as we interate x then y
-    for x in range(0,length):
+    for x in range(0,fbca.torusLength):
         holder=[] #downward column at the x value
-        for y in range(0,width):
+        for y in range(0,fbca.torusWidth):
             holder.append(FBCAConsts.CACell()) #adds in a cell and randomizes its state
             holder[y].state=random.randint(0,FBCAConsts.numOfStates-1)
-        CAMap.append(holder)
-    return(CAMap)
+        fbca.levelMap.append(holder)
+    return(fbca.levelMap)
 ```
 **Example code**
 From initCA.py
@@ -102,8 +102,8 @@ output:
 This function is made to copy over a level-map, which is a 2D array of cells, from one location in memeory to another. While a multitude of common copying methods already exist, when implemented the level-maps would fail to copy properly. To get around this, a custom function was made. It is not efficient. 
 
 ```python
-### Input: A list full of CACells
-### Output: Another list full cells with the same states as the input
+# Input: A list full of CACells
+# Output: Another list full cells with the same states as the input
 def copyOver(fbca):
     CAMap=[]
     for x in range(0,fbca.torusLength):
@@ -113,7 +113,6 @@ def copyOver(fbca):
             holder[y].state=fbca.levelMap[x][y].state
         CAMap.append(holder)
     return(CAMap)
-
 ```
 **Example code**
 
@@ -121,21 +120,24 @@ def copyOver(fbca):
 import FBCAConsts
 import libFBCAGen
 
-exFBCA1 = FBCAConsts.Fbca(); exFBCA2 = FBCAConsts.Fbca()
-print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}"); 
-exFBCA1.levelMap = libFBCAGen.initCA(exFBCA1.levelMap,2,2)
-print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}"); 
-exFBCA2.levelMap = libFBCAGen.copyOver(exFBCA1.levelMap,2,2)
-print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}"); 
+exFBCA1 = FBCAConsts.Fbca()
+exFBCA1.torusLength = 2; exFBCA1.torusWidth = 2
+exFBCA2 = FBCAConsts.Fbca(); exFBCA2.levelMap = []
+exFBCA2.torusLength = 2; exFBCA2.torusWidth = 2
+print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}")
+exFBCA1.levelMap = libFBCAGen.initCA(exFBCA1)
+print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}")
+exFBCA2.levelMap = libFBCAGen.copyOver(exFBCA1)
+print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}")
 ```
 Output: 
 ``` shell
 1 -> []
 2 -> []
-1 -> [[<FBCAConsts.CACell object at 0x7f2aa1978208>, <FBCAConsts.CACell object at 0x7f2aa1978588>], [<FBCAConsts.CACell object at 0x7f2aa19785c0>, <FBCAConsts.CACell object at 0x7f2aa1978630>]]
-2 -> [[<FBCAConsts.CACell object at 0x7f2aa1978208>, <FBCAConsts.CACell object at 0x7f2aa1978588>], [<FBCAConsts.CACell object at 0x7f2aa19785c0>, <FBCAConsts.CACell object at 0x7f2aa1978630>]]
-1 -> [[<FBCAConsts.CACell object at 0x7f2aa1978208>, <FBCAConsts.CACell object at 0x7f2aa1978588>], [<FBCAConsts.CACell object at 0x7f2aa19785c0>, <FBCAConsts.CACell object at 0x7f2aa1978630>]]
-2 -> [[<FBCAConsts.CACell object at 0x7f2aa1982128>, <FBCAConsts.CACell object at 0x7f2aa1982160>], [<FBCAConsts.CACell object at 0x7f2aa1982f60>, <FBCAConsts.CACell object at 0x7f2aa1982a20>]]
+1 -> [[<FBCAConsts.CACell object at 0x7fcf7ce54730>, <FBCAConsts.CACell object at 0x7fcf7cd45850>], [<FBCAConsts.CACell object at 0x7fcf7cd457f0>, <FBCAConsts.CACell object at 0x7fcf7ccd11f0>]]
+2 -> []
+1 -> [[<FBCAConsts.CACell object at 0x7fcf7ce54730>, <FBCAConsts.CACell object at 0x7fcf7cd45850>], [<FBCAConsts.CACell object at 0x7fcf7cd457f0>, <FBCAConsts.CACell object at 0x7fcf7ccd11f0>]]
+2 -> [[<FBCAConsts.CACell object at 0x7fcf7ce54520>, <FBCAConsts.CACell object at 0x7fcf7ccd1fa0>], [<FBCAConsts.CACell object at 0x7fcf7ccd16a0>, <FBCAConsts.CACell object at 0x7fcf7ccf22b0>]]
 ```
 
 To better visualize the rest of the library, the rendering functions, and all associated functions are mentioned now. 
