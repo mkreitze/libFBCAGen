@@ -25,7 +25,7 @@ numOfGens=40 # (g)
 numOfStates=2 # (n)
 scoreMatrix = [1,2,3,4] # (S)
 ```
-It should be noted that the 'connectivity' described by F is too arbtirary to generate efficent code for. To get around this, F is considered by default to be a torus of 100 cells in width and 100 cells in length with each cell connected to its first degree Von Neumann neighbour. 
+It should be noted that the 'connectivity' described by F is too arbtirary to generate efficent code for. To get around this, F is considered by default to be a torus of 100 cells in width and 100 cells in length with each cell connected to its first degree Von Neumann neighbour. Note: the neighbourhood of a cell is represented by a list of tuples. For example: [(-1,0) , (1,0) , (0,-1) , (0,1)] is a neighbourhood that represents the above, below, left and right cells of a given cell (called the von Neumann neighbourhood of a cell).  
 
 Additionally, L_0 has not been defined yet as we need to define the data structures for cells and FBCA as well as a generating function.
 
@@ -186,37 +186,79 @@ Due to this codes simplicity, no example code or output is shown.
 genIm turns an FBCA into a visualized map. This is done through converting each state into a colour for a png image using colourConvert. To generate the image, the PIL library is used. 
 
 ```python
-### Input: L_n (2d list of CACell with states), n, folder name, 
+### Input: A FBCA, folder name, quantifer
 ### Output: An image file
-def genIm(CAMap,n=FBCAConsts.numOfStates,directory=os.getcwd(),quantifer="giveName"):
-    im = Image.new('RGB', (n, n))
-    for x in range(n):
-        for y in range(n):
-            im.putpixel((x,y),colourConvert(CAMap[x][y]))
-    im.save(f"{directory}{quantifer} {str(n)}.png")
-    return(im)
-
-```
-**Example code**
-```python
-def genIm(CAMap,length = FBCAConsts.CALength-1, width = FBCAConsts.CAWidth-1 , directory = os.getcwd(),quantifer="/", gen = 0):
-    im = Image.new('RGB', (length, width))
-    for x in range(length):
-        for y in range(width):
-            im.putpixel((x,y),colourConvert(CAMap[x][y].state))
+def genIm(fBCA, directory = os.getcwd(),quantifer="/", gen = 0):
+    im = Image.new('RGB', (fBCA.torusLength, fBCA.torusWidth))
+    for x in range(fBCA.torusLength):
+        for y in range(fBCA.torusWidth):
+            im.putpixel((x,y),colourConvert(fBCA.levelMap[x][y].state))
     im.save(f"{directory}{quantifer} {str(gen)}.png")
     return(im)
 ```
-Output: 
-The following image is saved into the current working directory ![L_0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/0.png)
-
-**updateMap**
-Update Map takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The neighbourhood of a cell is represented by a list of tuples. For example: [(-1,0) , (1,0) , (0,-1) , (0,1)] is a neighbourhood that represents the above, below, left and right cells of a given cell (called the von Neumann neighbourhood of a cell).  
 
 **Example code**
+```python
+import FBCAConsts
+import libFBCAGen
+exFBCA = FBCAConsts.Fbca()
+exFBCA.levelMap = libFBCAGen.initCA(exFBCA.levelMap)
+libFBCAGen.genIm(exFBCA)
+```
+Output: 
+The following image is saved into the current working directory
 
+![L_0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/0.png)
+
+**updateMap**
+updateMap takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The updating function occurs in three steps, first each score is determined. Then the levelmap is copied. The original levelmap is searched for highest scoring neighbours and states of the copied map are changed. This updated copy is then returned.
+
+```python
+### Input: FBCA to update
+### Output: L_(n+1) (2d list of CACells)
+def updateMap(fbca):
+
+    for x in range(0,fbca.torusLength):
+        for y in range(0,fbca.torusWidth):
+            #Need to get score from center square and its neighbours.
+            row = fbca.levelMap[x][y].state*fbca.n #the center colour determines the row of the score matrix used 
+            #new method to save a small amount of computation
+            col0=fbca.levelMap[(x+fbca.neighbourhood[0][0])%fbca.torusLength][(y+fbca.neighbourhood[0][1])%fbca.torusWidth].state 
+            col1=fbca.levelMap[(x+fbca.neighbourhood[1][0])%fbca.torusLength][(y+fbca.neighbourhood[1][1])%fbca.torusWidth].state 
+            col2=fbca.levelMap[(x+fbca.neighbourhood[2][0])%fbca.torusLength][(y+fbca.neighbourhood[2][1])%fbca.torusWidth].state 
+            col3=fbca.levelMap[(x+fbca.neighbourhood[3][0])%fbca.torusLength][(y+fbca.neighbourhood[3][1])%fbca.torusWidth].state
+            fbca.levelMap[x][y].score=fbca.scoreMatrix[row+col0]+fbca.scoreMatrix[row+col1]+fbca.scoreMatrix[row+col2]+fbca.scoreMatrix[row+col3]
+    #start by copying the map
+    CAMapCopy=copyOver(fbca.levelMap)
+    #for every cell, find the highest score among neighbours
+    for x in range(0,fbca.torusLength):
+        for y in range(0,fbca.torusWidth):
+            #NOTE: We give priority to the center square on ties. Priority continues up with the last defined neighbour to have the worst priority
+            bigScore=0;bigScore=fbca.levelMap[x][y].score
+            #compares neighbours scores, reassigning bigScore and state if someone is bigger
+            for z in fbca.neighbourhood:
+                if(bigScore<fbca.levelMap[(x+z[0])%fbca.torusLength][(y+z[1])%fbca.torusWidth].score):
+                    bigScore=fbca.levelMap[(x+z[0])%fbca.torusLength][(y+z[1])%fbca.torusWidth].score
+                    CAMapCopy[x][y].state=fbca.levelMap[(x+z[0])%fbca.torusLength][(y+z[1])%fbca.torusWidth].state
+    return(CAMapCopy)
+```
+
+**Example code**
+``` python 
+import FBCAConsts
+import libFBCAGen
+exFBCA = FBCAConsts.Fbca()
+exFBCA.scoreMatrix = [0,0.5,0.2,0.6]
+exFBCA.levelMap = libFBCAGen.initCA(exFBCA.levelMap)
+totalNumOfGens = 5
+for n in range(totalNumOfGens):
+    libFBCAGen.genIm(exFBCA,gen = n)
+    exFBCA.levelMap = libFBCAGen.updateMap(exFBCA)
+```
 
 Output: 
+The following level-map visualizations are produced: 
+
 
 **initCA**
 **Example code**
