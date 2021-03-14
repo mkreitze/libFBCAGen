@@ -87,30 +87,33 @@ import FBCAConsts
 import libFBCAGen
 
 exFBCA = FBCAConsts.Fbca()
+exFBCA.torusLength = 2
+exFBCA.torusWidth = 2
 print (f"1 -> {exFBCA.levelMap}")
-exFBCA.levelMap = libFBCAGen.initCA(exFBCA.levelMap,2,2)
+exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
 print (exFBCA.levelMap)
 ```
 output: 
 ```shell
 1 -> []
-[[<FBCAConsts.CACell object at 0x7fa3a4168080>, <FBCAConsts.CACell object at 0x7fa3a418b828>], [<FBCAConsts.CACell object at 0x7fa3a418ba90>, <FBCAConsts.CACell object at 0x7fa3a418bac8>]]
+[[<FBCAConsts.CACell object at 0x7f02f51d4730>, <FBCAConsts.CACell object at 0x7f02f50fefa0>], [<FBCAConsts.CACell object at 0x7f02f50fe850>, <FBCAConsts.CACell object at 0x7f02f50b4700>]]
 ```
  **copyOver**
-This function is made to copy over a level-map, which is a 2D array of cells, from one location in memeory to another. While a multitude of common copying methods already exist, when implemented the level-maps would fail to copy properly. To get around this, a custom functino was made. It is not efficient. 
+This function is made to copy over a level-map, which is a 2D array of cells, from one location in memeory to another. While a multitude of common copying methods already exist, when implemented the level-maps would fail to copy properly. To get around this, a custom function was made. It is not efficient. 
 
 ```python
-# Input: A list full of CACells
-# Output: Another list full cells with the same states as the input
-def copyOver(CAMapInit,length = FBCAConsts.CALength, width = FBCAConsts.CAWidth):
+### Input: A list full of CACells
+### Output: Another list full cells with the same states as the input
+def copyOver(fbca):
     CAMap=[]
-    for x in range(0,length):
+    for x in range(0,fbca.torusLength):
         holder=[]
-        for y in range(0,width):
+        for y in range(0,fbca.torusWidth):
             holder.append(FBCAConsts.CACell())
-            holder[y].state=CAMapInit[x][y].state
+            holder[y].state=fbca.levelMap[x][y].state
         CAMap.append(holder)
     return(CAMap)
+
 ```
 **Example code**
 
