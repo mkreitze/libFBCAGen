@@ -138,7 +138,7 @@ Output:
 **Update Map**
 Update Map takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as: 
 
-[math](https://github.com/mkreitze/libFBCAGen/blob/master/resources/update%20function.png)
+[math](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png)
 
 each cell uses the  is made to copy over a level-map, which is a 2D array of cells, from one location in memeory to another. While a multitude of common copying methods already exist, when implemented the level-maps would fail to copy properly. To get around this, a custom functino was made. It is not efficient. 
 **Example code**
