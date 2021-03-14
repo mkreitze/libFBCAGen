@@ -137,9 +137,27 @@ Output:
 
 To better visualize the rest of the library, the rendering functions, and all associated functions are mentioned now. 
 
-**initCA**
+**makeFolder**
+A function that generates a folder provided it doesnt already exist and the path is attinable. 
+```python
+### Input: Name of a folder we want to make
+### Output: True (1) or False (0) if folder is made 
+def makeFolder(folderName):
+    try: 
+        os.makedirs(folderName)
+        return(1)
+    except:
+        return(0)
+```
 **Example code**
-
+```python
+import FBCAConsts
+import libFBCAGen
+d = f"{libFBCAGen.os.getcwd()}/test/"
+libFBCAGen.makeFolder(d)
+```
+Output: 
+A file named test appears in the same folder testCode.py is.
 
 **Update Map**
 Update Map takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The neighbourhood of a cell is represented by a list of tuples. For example: [(-1,0) , (1,0) , (0,-1) , (0,1)] is a neighbourhood that represents the above, below, left and right cells of a given cell (called the von Neumann neighbourhood of a cell).  
