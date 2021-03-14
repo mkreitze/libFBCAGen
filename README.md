@@ -208,7 +208,7 @@ def genIm(CAMap,length = FBCAConsts.CALength-1, width = FBCAConsts.CAWidth-1 , d
     return(im)
 ```
 Output: 
-The following image is saved into the current working directory [L_0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/0.png)
+The following image is saved into the current working directory ![L_0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/0.png)
 
 **updateMap**
 Update Map takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The neighbourhood of a cell is represented by a list of tuples. For example: [(-1,0) , (1,0) , (0,-1) , (0,1)] is a neighbourhood that represents the above, below, left and right cells of a given cell (called the von Neumann neighbourhood of a cell).  
