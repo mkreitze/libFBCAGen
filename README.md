@@ -135,10 +135,25 @@ Output:
 2 -> [[<FBCAConsts.CACell object at 0x7f2aa1982128>, <FBCAConsts.CACell object at 0x7f2aa1982160>], [<FBCAConsts.CACell object at 0x7f2aa1982f60>, <FBCAConsts.CACell object at 0x7f2aa1982a20>]]
 ```
 
+To better visualize the rest of the library, the rendering functions, and all associated functions are mentioned now. 
+
+**initCA**
+**Example code**
+
+
 **Update Map**
 Update Map takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The neighbourhood of a cell is represented by a list of tuples. For example: [(-1,0) , (1,0) , (0,-1) , (0,1)] is a neighbourhood that represents the above, below, left and right cells of a given cell (called the von Neumann neighbourhood of a cell).  
 
-each cell uses the  is made to copy over a level-map, which is a 2D array of cells, from one location in memeory to another. While a multitude of common copying methods already exist, when implemented the level-maps would fail to copy properly. To get around this, a custom functino was made. It is not efficient. 
+**Example code**
+
+
+Output: 
+
+**initCA**
+**Example code**
+**initCA**
+**Example code**
+**initCA**
 **Example code**
 **initCA**
 **Example code**
