@@ -135,7 +135,12 @@ Output:
 2 -> [[<FBCAConsts.CACell object at 0x7f2aa1982128>, <FBCAConsts.CACell object at 0x7f2aa1982160>], [<FBCAConsts.CACell object at 0x7f2aa1982f60>, <FBCAConsts.CACell object at 0x7f2aa1982a20>]]
 ```
 
-**initCA**
+**Update Map**
+Update Map takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as: 
+
+[math](https://github.com/mkreitze/libFBCAGen/tree/master/resources)
+
+each cell uses the  is made to copy over a level-map, which is a 2D array of cells, from one location in memeory to another. While a multitude of common copying methods already exist, when implemented the level-maps would fail to copy properly. To get around this, a custom functino was made. It is not efficient. 
 **Example code**
 **initCA**
 **Example code**
