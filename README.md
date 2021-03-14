@@ -159,7 +159,58 @@ libFBCAGen.makeFolder(d)
 Output: 
 A file named test appears in the same folder testCode.py is.
 
-**Update Map**
+**colourConvert**
+This is a simple switch function that returns a rgb tuple given an integer. The integer expected to be inputted in the state of a cell. For most applications, the first state is considered 'white space' in function of level-map generation, therefore changing this colour may yield nonsensical maps.
+```python
+### Input: state (as an int)
+### Output: RGB touple
+def colourConvert(x):
+    return {
+        0: (255,255,255),
+        1: (0,0,0),
+        2: (0,255,0),
+        3: (0,0,255),
+        4: (255,0,0),
+        5: (51,255,255),
+        6: (0,255,255),
+        7: (255,69,0),
+        8: (0,102,0),
+        9: (153,0,153),
+        10: (255,255,51),
+    }[x]    
+```
+
+Due to this codes simplicity, no example code or output is shown.
+
+**genIm**
+genIm turns an FBCA into a visualized map. This is done through converting each state into a colour for a png image using colourConvert. To generate the image, the PIL library is used. 
+
+```python
+### Input: L_n (2d list of CACell with states), n, folder name, 
+### Output: An image file
+def genIm(CAMap,n=FBCAConsts.numOfStates,directory=os.getcwd(),quantifer="giveName"):
+    im = Image.new('RGB', (n, n))
+    for x in range(n):
+        for y in range(n):
+            im.putpixel((x,y),colourConvert(CAMap[x][y]))
+    im.save(f"{directory}{quantifer} {str(n)}.png")
+    return(im)
+
+```
+**Example code**
+```python
+def genIm(CAMap,length = FBCAConsts.CALength-1, width = FBCAConsts.CAWidth-1 , directory = os.getcwd(),quantifer="/", gen = 0):
+    im = Image.new('RGB', (length, width))
+    for x in range(length):
+        for y in range(width):
+            im.putpixel((x,y),colourConvert(CAMap[x][y].state))
+    im.save(f"{directory}{quantifer} {str(gen)}.png")
+    return(im)
+```
+Output: 
+The following image is saved into the current working directory [L_0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/0.png)
+
+**updateMap**
 Update Map takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The neighbourhood of a cell is represented by a list of tuples. For example: [(-1,0) , (1,0) , (0,-1) , (0,1)] is a neighbourhood that represents the above, below, left and right cells of a given cell (called the von Neumann neighbourhood of a cell).  
 
 **Example code**
