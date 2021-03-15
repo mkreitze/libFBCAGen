@@ -39,11 +39,11 @@ class Fbca:
     levelMap=[] # L_g
     scoreMatrix=[] # S
     behaviourNum=0 # iso-behavioural identification 
-    # g = numOfGens
-    # n = numOfStates
-    # neighbourhood = neighbours
-    # torusWidth = CAWidth
-    # torusLength = CALength
+    g = numOfGens
+    n = numOfStates
+    neighbourhood = neighbours
+    torusWidth = CAWidth
+    torusLength = CALength
 ```
 It should be noted that the final 5 parameters are almost always considered to be globally defined and are usually commented out to reduce computation times.
 
@@ -164,7 +164,7 @@ Output:
 A file named test appears in the same folder testCode.py is.
 
 **colourConvert**
-This is a simple switch function that returns a rgb tuple given an integer. The integer expected to be inputted in the state of a cell. For most applications, the first state is considered 'white space' in function of level-map generation, therefore changing this colour may yield nonsensical maps.
+This is a simple switch function that returns a RGB tuple given an integer. The integer expected to be inputted in the state of a cell. For most applications, the first state is considered 'white space' in function of level-map generation, therefore changing this colour may yield nonsensical maps.
 ```python
 ### Input: state (as an int)
 ### Output: RGB touple
@@ -206,8 +206,8 @@ def genIm(fBCA, directory = os.getcwd(),quantifer="/", gen = 0):
 import FBCAConsts
 import libFBCAGen
 exFBCA = FBCAConsts.Fbca()
-exFBCA.levelMap = libFBCAGen.initCA(exFBCA.levelMap)
-libFBCAGen.genIm(exFBCA)
+exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
+libFBCAGen.genIm(exFBCA,quantifer = "/genIm")
 ```
 Output: 
 The following image is saved into the current working directory
@@ -233,7 +233,7 @@ def updateMap(fbca):
             col3=fbca.levelMap[(x+fbca.neighbourhood[3][0])%fbca.torusLength][(y+fbca.neighbourhood[3][1])%fbca.torusWidth].state
             fbca.levelMap[x][y].score=fbca.scoreMatrix[row+col0]+fbca.scoreMatrix[row+col1]+fbca.scoreMatrix[row+col2]+fbca.scoreMatrix[row+col3]
     #start by copying the map
-    CAMapCopy=copyOver(fbca.levelMap)
+    CAMapCopy=copyOver(fbca)
     #for every cell, find the highest score among neighbours
     for x in range(0,fbca.torusLength):
         for y in range(0,fbca.torusWidth):
