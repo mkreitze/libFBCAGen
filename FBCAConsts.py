@@ -19,11 +19,12 @@ class Fbca:
     levelMap=[] # L_g
     scoreMatrix=[] # S
     behaviourNum=0 # iso-behavioural identification 
-    # g = numOfGens
-    # n = numOfStates
-    # neighbourhood = neighbours
-    # torusWidth = CAWidth
-    # torusLength = CALength
+    g = numOfGens
+    n = numOfStates
+    neighbourhood = neighbours
+    torusWidth = CAWidth
+    torusLength = CALength
+
 
 class CACell:
     state=0
