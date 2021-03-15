@@ -262,11 +262,11 @@ for n in range(totalNumOfGens):
 
 Output: 
 The following level-map visualizations are produced: 
-[L0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%200.png)
-[L1](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%201.png)
-[L2](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%202.png)
-[L3](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%203.png)
-[L4](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%204.png)
+![L0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%200.png)
+![L1](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%201.png)
+![L2](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%202.png)
+![L3](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%203.png)
+![L4](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%204.png)
 
 **initCA**
 **Example code**
