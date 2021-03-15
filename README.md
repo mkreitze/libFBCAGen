@@ -218,8 +218,8 @@ The following image is saved into the current working directory
 updateMap takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The updating function occurs in three steps, first each score is determined. Then the levelmap is copied. The original levelmap is searched for highest scoring neighbours and states of the copied map are changed. This updated copy is then returned.
 
 ```python
-### Input: FBCA to update
-### Output: L_(n+1) (2d list of CACells)
+# Input: FBCA to update
+# Output: L_(n+1) (2d list of CACells)
 def updateMap(fbca):
 
     for x in range(0,fbca.torusLength):
@@ -262,6 +262,7 @@ for n in range(totalNumOfGens):
 
 Output: 
 The following level-map visualizations are produced: 
+
 ![L0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%200.png)
 ![L1](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%201.png)
 ![L2](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%202.png)
