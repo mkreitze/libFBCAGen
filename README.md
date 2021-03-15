@@ -212,7 +212,7 @@ libFBCAGen.genIm(exFBCA,quantifer = "/genIm")
 Output: 
 The following image is saved into the current working directory
 
-![L_0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/0.png)
+![L_0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/genIm%200.png)
 
 **updateMap**
 updateMap takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The updating function occurs in three steps, first each score is determined. Then the levelmap is copied. The original levelmap is searched for highest scoring neighbours and states of the copied map are changed. This updated copy is then returned.
@@ -262,7 +262,11 @@ for n in range(totalNumOfGens):
 
 Output: 
 The following level-map visualizations are produced: 
-
+[L0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%200.png)
+[L1](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%201.png)
+[L2](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%202.png)
+[L3](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%203.png)
+[L4](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%204.png)
 
 **initCA**
 **Example code**
