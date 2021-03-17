@@ -269,8 +269,26 @@ The following level-map visualizations are produced:
 ![L3](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%203.png)
 ![L4](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%204.png)
 
-**initCA**
+**generateFBCA**
+This function takes a _assumed to be initalized_ FBCA and fully generates it. It allows for each frame of the FBCA to be saved as a png image coloured coded by colourConvert or saved as a string of integers onto a textfile using genText.  
 **Example code**
+```python
+# Input: fbca, directory, quantifer
+# Output: L_g for the system, if saved, L will be generated in as folder named by the quantifer.
+def generateFBCA(fbca,directory = os.getcwd(),quantifer = "test", saveImages = False, saveFinalImage = False):
+    gif=[];CAMap=[];CAMap=copyOver(fbca) #PIL shenningans
+    if (saveImages == True ) or (saveFinalImage == True ):
+        directory=f"{directory}/{quantifer}/"
+    makeFolder(directory)
+    for n in range(fbca.g):
+        if (saveImages == True):
+            gif.append(genIm(fbca, directory, quantifer, gen = n))
+        fbca.levelMap=updateMap(fbca)
+    if (saveFinalImage==1):
+        gif.append(genIm(fbca, directory, quantifer, fbca.g))
+        gif[0].save(f"{directory}{quantifer}.gif",save_all=True,append_images=gif[1:],optimize=False,duration=100,loop=0)
+    return(CAMap)
+```
 **initCA**
 **Example code**
 **initCA**
