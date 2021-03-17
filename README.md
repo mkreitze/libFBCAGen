@@ -269,6 +269,26 @@ The following level-map visualizations are produced:
 ![L3](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%203.png)
 ![L4](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%204.png)
 
+**genText**
+Saves an FBCA into a text document. This is done by turning the levelmap into an integer string and (optionally) writing the FBCAs score matrix, g, n, torus width, torus length and cell neighbourhoods as, sMs{fbca.scoreMatrix}g{fbca.g}n{fbca.n}w{fbca.torusWidth}l{fbca.torusLength}neighbours{fbca.neighbourhood}
+``` python 
+# saves fbca in a text doc
+# Input: FBCA, directory, fileName, newFile, justMap
+def genText(fbca, directory = os.getcwd(), fileName = "test.txt", newFile = True, justMap = False):
+    if newFile == True: 
+        f = open(fileName, "w")
+    else:
+        f = open(fileName, "a")
+    for x in range(fbca.torusWidth):
+        for y in range(fbca.torusLength):
+            f.write(f"{fbca.levelMap[x][y].state}")
+    f.write("\n")
+    if justMap == False:
+        f.write(f"sMs{fbca.scoreMatrix}g{fbca.g}n{fbca.n}w{fbca.torusWidth}l{fbca.torusLength}neighbours{fbca.neighbourhood}\n")
+    return()
+```
+**Example code**
+
 **generateFBCA**
 This function takes a _assumed to be initalized_ FBCA and fully generates it. It allows for each frame of the FBCA to be saved as a png image coloured coded by colourConvert or saved as a string of integers onto a textfile using genText.  
 **Example code**
@@ -289,8 +309,6 @@ def generateFBCA(fbca,directory = os.getcwd(),quantifer = "test", saveImages = F
         gif[0].save(f"{directory}{quantifer}.gif",save_all=True,append_images=gif[1:],optimize=False,duration=100,loop=0)
     return(CAMap)
 ```
-**initCA**
-**Example code**
 **initCA**
 **Example code**
 **initCA**
