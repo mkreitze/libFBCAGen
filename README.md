@@ -270,7 +270,12 @@ The following level-map visualizations are produced:
 ![L4](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%204.png)
 
 **genText**
-Saves an FBCA into a text document. This is done by turning the levelmap into an integer string and (optionally) writing the FBCAs score matrix, g, n, torus width, torus length and cell neighbourhoods as, sMs{fbca.scoreMatrix}g{fbca.g}n{fbca.n}w{fbca.torusWidth}l{fbca.torusLength}neighbours{fbca.neighbourhood}
+Saves an FBCA into a text document. This is done by first (optionally) saving the cells of the FBCA as a string of integers representing each cells state. The following string;
+
+sMs{fbca.scoreMatrix}g{fbca.g}n{fbca.n}w{fbca.torusWidth}l{fbca.torusLength}neighbours{fbca.neighbourhood}
+
+then records the g (updates), n (number of states), torus width, torus length and each cells neighbourhood.
+
 ``` python 
 # saves fbca in a text doc
 # Input: FBCA, directory, fileName, newFile, justMap
@@ -288,10 +293,17 @@ def genText(fbca, directory = os.getcwd(), fileName = "test.txt", newFile = True
     return()
 ```
 **Example code**
-
+```python
+import FBCAConsts
+import libFBCAGen
+exFBCA = FBCAConsts.Fbca()
+exFBCA.scoreMatrix = [0,0.5,0.2,0.6]
+exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
+exFBCA.g = 6
+libFBCAGen.genText(exFBCA)
+```
 **generateFBCA**
 This function takes a _assumed to be initalized_ FBCA and fully generates it. It allows for each frame of the FBCA to be saved as a png image coloured coded by colourConvert or saved as a string of integers onto a textfile using genText.  
-**Example code**
 ```python
 # Input: fbca, directory, quantifer
 # Output: L_g for the system, if saved, L will be generated in as folder named by the quantifer.
@@ -309,6 +321,18 @@ def generateFBCA(fbca,directory = os.getcwd(),quantifer = "test", saveImages = F
         gif[0].save(f"{directory}{quantifer}.gif",save_all=True,append_images=gif[1:],optimize=False,duration=100,loop=0)
     return(CAMap)
 ```
+**Example code**
+```python
+import FBCAConsts
+import libFBCAGen
+exFBCA = FBCAConsts.Fbca()
+exFBCA.scoreMatrix = [0,0.5,0.2,0.6]
+exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
+exFBCA.g = 6
+exFBCA.levelMap = libFBCAGen.generateFBCA(exFBCA,saveFinalImage=True, saveImages= True, saveFinalText = True)
+```
+Output:
+
 **initCA**
 **Example code**
 **initCA**
