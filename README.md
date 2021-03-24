@@ -192,12 +192,12 @@ genIm turns an FBCA into a visualized map. This is done through converting each 
 ```python
 ### Input: A FBCA, folder name, quantifer
 ### Output: An image file
-def genIm(fBCA, directory = os.getcwd(),quantifer="/", gen = 0):
+def genIm(fBCA, directory = os.getcwd(),quantifer="", gen = 0):
     im = Image.new('RGB', (fBCA.torusLength, fBCA.torusWidth))
     for x in range(fBCA.torusLength):
         for y in range(fBCA.torusWidth):
             im.putpixel((x,y),colourConvert(fBCA.levelMap[x][y].state))
-    im.save(f"{directory}{quantifer} {str(gen)}.png")
+    im.save(f"{directory}/{quantifer} {str(gen)}.png")
     return(im)
 ```
 
@@ -332,9 +332,10 @@ exFBCA = FBCAConsts.Fbca()
 exFBCA.scoreMatrix = [0,0.5,0.2,0.6]
 exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
 exFBCA.g = 6
-exFBCA.levelMap = libFBCAGen.generateFBCA(exFBCA,saveFinalImage=True, saveImages= True, saveFinalText = True)
+exFBCA.levelMap = libFBCAGen.generateFBCA(exFBCA,saveFinalImage=True, saveImages= True, saveFinalText = True, quantifer = "generateFBCAExample")
 ```
 Output:
+The folder :
 
 **initCA**
 **Example code**
