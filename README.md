@@ -77,16 +77,21 @@ copyOver (Custom copying function for FBCA data structure)
 updateFBCA (Updates FBCA once)
 
  **initCA**
+ 
 Example call:
+
 fbca.levelMap = initCA(fbca) 
 
 Arguments:
+
 *fbca*: An initalized FBCA data structure. It does not have to be filled with anything. 
 
 Outputs:
+
 *fbca.levelMap*: A level-map full of random states. 
 
-This function filles a FBCA's level-map with states initalized using random's randint function. 
+
+This function fills a FBCA's level-map with states initalized using random's randint function. 
 
 **Example (initCAExample.py)**
 ```python
@@ -99,6 +104,7 @@ print (f"1 -> {exFBCA.levelMap}")
 exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
 print (f"1 -> {exFBCA.levelMap}")
 ```
+
 **Example Output:** 
 ```shell
 1 -> []
@@ -106,14 +112,19 @@ print (f"1 -> {exFBCA.levelMap}")
 ```
 
  **copyOver**
+ 
 Example call:
+
 fbca2.levelMap = copyOver(fbca1)
 
 Arguments: 
+
 *fbca*: An FBCA whose cellular automata has been initalized with states.  
 
 Output:
+
 *CAMap*: A new data structure containing the same level-map as the input FBCA.
+
 
 This function is made to copy over a level-map, which is a 2D array of cells, from one location in memeory to another. While a multitude of common copying methods already exist, when implemented the level-maps would fail to copy properly. To get around this, a custom function was made. It is not efficient. 
 
@@ -144,15 +155,19 @@ print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}")
 ```
 
 **makeFolder**
+
 Argument:
+
 *folderName*: Name of folder to be generated. **Do not forget to add /'s accordingly**
 
 Output:
+
 A folder of the name given in the current directory.
+
 
 A function that generates a folder provided it doesnt already exist and the path is attinable. 
 
-**Example code (makeFolderExample.py**
+**Example code (makeFolderExample.py)**
 ```python
 import FBCAConsts
 import libFBCAGen
@@ -165,7 +180,7 @@ A file named test appears in the same folder testCode.py is.
 
 **colourConvert**
 Example call:
-fbca2.levelMap = copyOver(fbca1)
+colour = colourConvert(fBCA.levelMap[x][y].state)
 
 Argument:
 *x*: The state of a cell represented as an integer.
@@ -179,16 +194,21 @@ Due to this codes simplicity, no example code or output is shown.
 
 **genIm**
 Example call:
-fbca2.levelMap = copyOver(fbca1)
+genIm(exFBCA,quantifer = "/genIm")
 
-Argument:
-*fbca*: The state of a cell represented as an integer.
-*directory*: The state of a cell represented as an integer.
-*quantifer*: The state of a cell represented as an integer.
-*gen*: The state of a cell represented as an integer.
+**Argument:**
+*fbca*: The desired FBCA to be visualized. Ideally this is initalized
 
-Output:
+*directory*: The desired location of the image. Defaults to the current working directory. **Do not forget to add /'s accordingly**
+
+*quantifer*: The starting name of each file. The gen number is later tacked on. The default is 'test'
+
+*gen*: The number current update being visualized. This is especially useful when generating multiple images. 
+
+
+**Output:**
 *im*: A RGB tuple represented as three integers. 
+
 
 genIm turns an FBCA into a visualized map. This is done through converting each state into a colour for a png image using colourConvert. To generate the image, the PIL library is used. 
 
@@ -202,19 +222,21 @@ exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
 libFBCAGen.genIm(exFBCA,quantifer = "/genIm")
 ```
 Output: 
+
 The following image is saved into the folder 'genIm' in the current working directory
 
 ![L_0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/genIm%200.png)
 
 **updateMap**
 Example call:
-fbca2.levelMap = copyOver(fbca1)
 
-Argument:
-*fbca*: The state of a cell represented as an integer.
+fbca.levelMap = updateMap(fbca)
 
-Output:
-*CAMapCopy*: A RGB tuple represented as three integers. 
+**Argument:**
+*fbca*: The FBCA driving the update. It is assumed to be initalized. 
+
+**Output:**
+*CAMapCopy*: The updated list of states that represent the level-map
 
 updateMap takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The updating function occurs in three steps, first each score is determined. Then the levelmap is copied. The original levelmap is searched for highest scoring neighbours and states of the copied map are changed. This updated copy is then returned.
 
@@ -231,7 +253,7 @@ for n in range(totalNumOfGens):
     exFBCA.levelMap = libFBCAGen.updateMap(exFBCA)
 ```
 
-Output: 
+Output:
 The following level-map visualizations are produced: 
 
 ![L0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%200.png)
@@ -242,19 +264,26 @@ The following level-map visualizations are produced:
 
 **genText**
 Example call:
-fbca2.levelMap = copyOver(fbca1)
 
-Argument:
-*fbca*: The state of a cell represented as an integer.
-*directory*: The state of a cell represented as an integer.
-*fileName*: The state of a cell represented as an integer.
-*newFile*: The state of a cell represented as an integer.
-*justMap*: The state of a cell represented as an integer.
+genText(exFBCA,fileName = "genTextExample.txt")
+
+**Argument:**
+*fbca*: The FBCA to be recorded as text
+
+*directory*: File directory to save to . Defaults to the current working directory. **Do not forget to add /'s accordingly**
+
+*fileName*: Name of generated text file 
+
+*newFile*: Boolean, if true, the old file will be written over. Defaults to true.
+
+*justMap*: Boolean, if true, only the states of the level-map wil be recorded. Defaults to false.
+
+*noMap*: Boolean, if true, the states of the level-map will not be recorded. Defaults to false.
 
 Output:
 A textfile named "fileName" in the specified directory (or current working directory if not specified)
 
-Saves an FBCA into a text document. This is done by first (optionally) saving the cells of the FBCA as a string of integers representing each cells state. The following string;
+Saves an FBCA into a text document. This is done by first (optionally) saving the cells of the FBCA as a string of integers representing each cells state. Then (optionally) the following string;
 
 sMs{fbca.scoreMatrix}g{fbca.g}n{fbca.n}w{fbca.torusWidth}l{fbca.torusLength}neighbours{fbca.neighbourhood}
 
@@ -287,25 +316,32 @@ exFBCA.g = 6
 libFBCAGen.genText(exFBCA,fileName = "genTextExample.txt")
 ```
 Output: 
-The following text file. 
+The following [text file](https://github.com/mkreitze/libFBCAGen/blob/master/resources/genTextExample/genTextExample.txt). 
 
 **generateFBCA**
+
 Example call:
-fbca2.levelMap = copyOver(fbca1)
+exFBCA.levelMap = generateFBCA(exFBCA,saveFinalImage=True, saveImages= True, saveFinalText = True, quantifer = "generateFBCAExample")
 
-Argument:
-*fbca*: The state of a cell represented as an integer.
-*directory*: The state of a cell represented as an integer.
-*quantifer*: The state of a cell represented as an integer.
-*saveImages*: The state of a cell represented as an integer.
-*saveFinalImages*: The state of a cell represented as an integer.
-*saveText*: The state of a cell represented as an integer.
-*saveFinalText*: The state of a cell represented as an integer.
+**Argument:**
+*fbca*: The FBCA to be visualized and recorded
 
-Output:
-*CAMap*: The state of a cell represented as an integer.
+*directory*: The directory all files will be saved to. Defaulted to current working directory.
 
-This function takes a _assumed to be initalized_ FBCA and fully generates it. It allows for each frame of the FBCA to be saved as a png image coloured coded by colourConvert or saved as a string of integers onto a textfile using genText.  
+*quantifer*: The starting name of each file. Defaulted to 'test'
+
+*saveImages*: Boolean, if true, pngs of each update will be saved. Defaulted to False.
+
+*saveFinalImages*: Boolean, if true, saves a gif of all updates strung together. Defaulted to false.
+
+*saveText*: Boolean, if true, saves each update as an integer string to text file. Defaulted to false.
+
+*saveFinalText*: Boolean, if true, saves final update as an integer string and saves the FBCA paramters to text. Defaulted to false.
+
+**Output:**
+*CAMap*: The final level-map from the FBCA run to its number of generations.
+
+This function takes a _assumed to be initalized_ FBCA and fully generates it. It allows for it to be recorded through each update either as text or png image.   
 
 **Example code**
 ```python
@@ -323,6 +359,7 @@ Output:
 [This folder](https://github.com/mkreitze/libFBCAGen/tree/master/resources/generateFBCAExample). 
 
 #should add FBCA reader from text file
+#should add genFromSM function
 
 **Code of all functions: (idk if i should keep)**
 
@@ -426,6 +463,24 @@ def updateMap(fbca):
                     bigScore=fbca.levelMap[(x+z[0])%fbca.torusLength][(y+z[1])%fbca.torusWidth].score
                     CAMapCopy[x][y].state=fbca.levelMap[(x+z[0])%fbca.torusLength][(y+z[1])%fbca.torusWidth].state
     return(CAMapCopy)
+```
+**genText**
+```python 
+# Input: FBCA, directory, fileName, newFile, justMap, noMap
+# Output: text file recording FBCA
+def genText(fbca, directory = os.getcwd(), fileName = "test.txt", newFile = True, justMap = False, noMap = Falses):
+    if newFile == True: 
+        f = open(fileName, "w")
+    else:
+        f = open(fileName, "a")
+    if noMap == False:
+        for x in range(fbca.torusLength):
+            for y in range(fbca.torusWidth):
+                f.write(f"{fbca.levelMap[x][y].state}")
+    f.write("\n")
+    if justMap == False:
+        f.write(f"sMs{fbca.scoreMatrix}g{fbca.g}n{fbca.n}w{fbca.torusWidth}l{fbca.torusLength}neighbours{fbca.neighbourhood}\n")
+    return()
 ```
 **generateFBCA**
 ```python
