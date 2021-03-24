@@ -113,24 +113,39 @@ def updateMap(fbca):
 
 # Above is done #
 
+# Generation of text document representing FBCA # 
+# Input: FBCA, directory, fileName, newFile, justMap
+def genText(fbca, directory = os.getcwd(), fileName = "test.txt", newFile = True, justMap = False):
+    if newFile == True: 
+        f = open(fileName, "w")
+    else:
+        f = open(fileName, "a")
+    for x in range(fbca.torusWidth):
+        for y in range(fbca.torusLength):
+            f.write(f"{fbca.levelMap[x][y].state}")
+    f.write("\n")
+    if justMap == False:
+        f.write(f"sMs{fbca.scoreMatrix}g{fbca.g}n{fbca.n}w{fbca.torusWidth}l{fbca.torusLength}neighbours{fbca.neighbourhood}\n")
+    return()
+
 # Generation of FBCA #
-# Input: Score matrix (as a one dimensional list), directory, L_0 and a quantifer
-# Output: L_g for the system, if visualized L will be generated in a folder named by the quantifer.
-# Notes:
-# Since F,g,L_0,n are all constant, they are not needed for the generate FBCA function.
-# The global variables useImages and finalImage dictate if visual records are kept for generated FBCAs
-# The visual records come as a gif and L_g (I am having difficulty making it just a bunch of single images)
-def generateFBCA(scoreMatrix,d,CAMapInit,quantifer):
-    gif=[];CAMap=[];CAMap=copyOver(CAMapInit)
-    if (useImages==1) or (finalImage==1):
-        d=f"{d}/{quantifer}/"
-    makeFolder(d)
-    for n in range(numOfGens):
-        if (useImages==1):
-            gif.append(genIm(CAMap,numOfGens,d,quantifer))
-        CAMap=updateMap(CAMap,scoreMatrix)
-    if (finalImage==1):
-        gif.append(genIm(CAMap,numOfGens,d,quantifer))
-        gif[0].save(f"{d}{quantifer}.gif",save_all=True,append_images=gif[1:],optimize=False,duration=100,loop=0)
+# Input: fbca, directory, quantifer
+# Output: L_g for the system, if saved, L will be generated in as folder named by the quantifer.
+def generateFBCA(fbca,directory = os.getcwd(),quantifer = "test", saveImages = False, saveFinalImage = False, saveText = False, saveFinalText = False):
+    gif=[];CAMap=[];CAMap=copyOver(fbca) #PIL shenningans
+    if (saveImages == True ) or (saveFinalImage == True ):
+        directory=f"{directory}/{quantifer}/"
+    makeFolder(directory)
+    for n in range(fbca.g):
+        if (saveImages == True):
+            gif.append(genIm(fbca, directory, quantifer, gen = n))
+        if (saveText == True):
+            genText(fbca, directory, f"{quantifer}.txt", justMap = True, writeNewFile = False)
+        fbca.levelMap=updateMap(fbca)
+    if (saveFinalImage == True) or (saveImages == True):
+        gif.append(genIm(fbca, directory, quantifer, fbca.g))
+        gif[0].save(f"{directory}{quantifer}.gif",save_all=True,append_images=gif[1:],optimize=False,duration=100,loop=0)
+    if (saveText == True) or (saveFinalText == True):
+        genText(fbca,directory, f"{quantifer}.txt", justMap = False, writeNewFile = False)
     return(CAMap)
 
