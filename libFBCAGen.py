@@ -112,15 +112,17 @@ def updateMap(fbca):
 
 
 # Generation of text document representing FBCA # 
-# Input: FBCA, directory, fileName, newFile, justMap
-def genText(fbca, directory = os.getcwd(), fileName = "test.txt", newFile = True, justMap = False):
+# Input: FBCA, directory, fileName, newFile, justMap, noMap
+# Output: text file recording FBCA
+def genText(fbca, directory = os.getcwd(), fileName = "test.txt", newFile = True, justMap = False, noMap = Falses):
     if newFile == True: 
         f = open(fileName, "w")
     else:
         f = open(fileName, "a")
-    for x in range(fbca.torusWidth):
-        for y in range(fbca.torusLength):
-            f.write(f"{fbca.levelMap[x][y].state}")
+    if noMap == False:
+        for x in range(fbca.torusLength):
+            for y in range(fbca.torusWidth):
+                f.write(f"{fbca.levelMap[x][y].state}")
     f.write("\n")
     if justMap == False:
         f.write(f"sMs{fbca.scoreMatrix}g{fbca.g}n{fbca.n}w{fbca.torusWidth}l{fbca.torusLength}neighbours{fbca.neighbourhood}\n")
@@ -146,3 +148,5 @@ def generateFBCA(fbca,directory = os.getcwd(),quantifer = "test", saveImages = F
     if (saveText == True) or (saveFinalText == True):
         genText(fbca,directory, f"{directory}/{quantifer}.txt", justMap = False, newFile = False)
     return(CAMap)
+
+# reads a score matrix from text
