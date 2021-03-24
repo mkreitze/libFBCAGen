@@ -11,5 +11,5 @@ exFBCA.n = 6
 exFBCA.torusWidth = 200
 exFBCA.torusLength = 400
 exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
-exFBCA.g = 10
-exFBCA.levelMap = libFBCAGen.generateFBCA(exFBCA,saveFinalImage=True, saveImages= True, saveFinalText = True, saveText = True, quantifer = "niceImage")
+exFBCA.g = 6
+exFBCA.levelMap = libFBCAGen.generateFBCA(exFBCA,saveFinalImage=True, saveImages= True, saveFinalText = True, saveText = True, quantifer = "rand3")
