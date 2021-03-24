@@ -1,6 +1,17 @@
+# How to use
+
+The following libraries are required to use this library for map generation: 
+Python 3
+PIL (python image library)
+os (operating system library)
+time 
+random 
+
+To use, simply download **FBCAConsts.py** and **libFBCAGen.py** to your working directory. From here use normal import commands to access any functions and data structures. Within this git (as well as in this readme) there are a variety of example codes. Below is preface of what this package can do.
+
 # Preface
 
-Fashion Based Cellular Automata (FBCA) are self organizing structures that are normal cellular automata with a governing rule set known as a score matrix. This score matrix allows a single cell of a FBCA to change its state to a nearby more desirable state by evaluating scores assigned to each cell. FBCAs have been found to be extremely useful for level-map genreation in videogames. This comes from an FBCA exhibiting local self organizing behaviour which, when paired with an inital random state, produce level-maps that have similar local behaviour but different overall configurations. FBCA were first defined (here). For a more applied explaination the map below has been generated using FBCA.
+The following is a quick, reproducible and infintely scalable method to generate similar looking videogame level-maps using fashion based cellular automata. Fashion Based Cellular Automata (FBCA) are self organizing structures that are normal cellular automata with a governing rule set known as a score matrix. This score matrix allows a single cell of a FBCA to change its state to a nearby more desirable state by evaluating scores assigned to each cell. FBCAs have been found to be extremely useful for level-map genreation in videogames. This comes from an FBCA exhibiting local self organizing behaviour which, when paired with an inital random state, produce level-maps that have similar local behaviour but different overall configurations. FBCA were first defined (here). For a more applied explaination the map below has been generated using FBCA.
 
 ![A cavern map image](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/niceImage%206.png)
 
