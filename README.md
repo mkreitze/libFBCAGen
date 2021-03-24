@@ -1,8 +1,19 @@
 # Preface
 
-Fashion Based Cellular Automata (FBCA) are self organizing structures that are normal cellular automata with a governing rule set known as a score matrix. This score matrix allows a single cell of a FBCA to change its state to a nearby more desirable state by evaluating scores assigned to each cell. FBCAs have been found to be extremely useful for level-map genreation in videogames. This comes from an FBCA exhibiting local self organizing behaviour which, when paired with an inital random state, produce level-maps that have similar local behaviour but different overall configurations. FBCA were first defined (here). 
+Fashion Based Cellular Automata (FBCA) are self organizing structures that are normal cellular automata with a governing rule set known as a score matrix. This score matrix allows a single cell of a FBCA to change its state to a nearby more desirable state by evaluating scores assigned to each cell. FBCAs have been found to be extremely useful for level-map genreation in videogames. This comes from an FBCA exhibiting local self organizing behaviour which, when paired with an inital random state, produce level-maps that have similar local behaviour but different overall configurations. FBCA were first defined (here). For a more applied explination the map below has been generated using FBCA.
 
-# put example image here.
+![A cavern map image](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/niceImage%206.png)
+
+With one or two applications of paintbucket tool in paint, we obtain: 
+
+![A nice level-map](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/niceImage%20recolour.png)
+The above map could easily represent a cavern system full of water (represented by blue), open caves (represented by white), some dangerous material (represented by red) and valuable ore (represented by black). The beneifit of FBCA if their abiltiy to reproduce local behaviour. Simply changing the inital random state, we get the following similar maps, each taking a few seconds to generate:
+
+![Another nice map](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/rand1%20recolour.png)
+![Another nice map](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/rand2%20recolour.png)
+![Another nice map](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/rand1%20recolour.png)
+
+The following is the library that allows for easy generation and saving of FBCA for level-map generation. 
 
 # Initalizations
 To properly define a FBCA, five parameters are required. As shown in (thesis plug), these parameters are: 
@@ -337,7 +348,4 @@ exFBCA.levelMap = libFBCAGen.generateFBCA(exFBCA,saveFinalImage=True, saveImages
 Output:
 The folder :
 
-**initCA**
-**Example code**
-**initCA**
-**Example code**
+
