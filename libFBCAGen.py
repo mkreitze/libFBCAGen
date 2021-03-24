@@ -114,7 +114,7 @@ def updateMap(fbca):
 # Generation of text document representing FBCA # 
 # Input: FBCA, directory, fileName, newFile, justMap, noMap
 # Output: text file recording FBCA
-def genText(fbca, directory = os.getcwd(), fileName = "test.txt", newFile = True, justMap = False, noMap = Falses):
+def genText(fbca, directory = os.getcwd(), fileName = "test.txt", newFile = True, justMap = False, noMap = False):
     if newFile == True: 
         f = open(fileName, "w")
     else:
