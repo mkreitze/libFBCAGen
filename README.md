@@ -300,8 +300,11 @@ exFBCA = FBCAConsts.Fbca()
 exFBCA.scoreMatrix = [0,0.5,0.2,0.6]
 exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
 exFBCA.g = 6
-libFBCAGen.genText(exFBCA)
+libFBCAGen.genText(exFBCA,fileName = "genTextExample.txt")
 ```
+Output: 
+The following text file. 
+
 **generateFBCA**
 This function takes a _assumed to be initalized_ FBCA and fully generates it. It allows for each frame of the FBCA to be saved as a png image coloured coded by colourConvert or saved as a string of integers onto a textfile using genText.  
 ```python
