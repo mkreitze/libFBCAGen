@@ -7,6 +7,7 @@ Fashion Based Cellular Automata (FBCA) are self organizing structures that are n
 With one or two applications of paintbucket tool in paint, we obtain: 
 
 ![A nice level-map](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/niceImage%20recolour.png)
+
 The above map could easily represent a cavern system full of water (represented by blue), open caves (represented by white), some dangerous material (represented by red) and valuable ore (represented by black) and exceedingly rare ore (reprsented by green and dark blue). The beneifit of FBCA if their abiltiy to reproduce local behaviour. Simply changing the inital random state, we get the following similar maps, each taking a few seconds to generate:
 
 ![Another nice map](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/rand1%20recolour.png)
