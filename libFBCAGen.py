@@ -71,16 +71,15 @@ def colourConvert(x):
 # Image generation method #
 # Input: A FBCA, folder name, quantifer
 # Output: An image file
-def genIm(fBCA, directory = os.getcwd(),quantifer="/", gen = 0):
+def genIm(fBCA, directory = os.getcwd(),quantifer="", gen = 0):
     im = Image.new('RGB', (fBCA.torusLength, fBCA.torusWidth))
     for x in range(fBCA.torusLength):
         for y in range(fBCA.torusWidth):
             im.putpixel((x,y),colourConvert(fBCA.levelMap[x][y].state))
-    im.save(f"{directory}{quantifer} {str(gen)}.png")
+    im.save(f"{directory}/{quantifer} {str(gen)}.png")
     return(im)
 
 
-# Above is done #
 
 # FBCA Updater #
 # Input: FBCA to update
@@ -111,7 +110,6 @@ def updateMap(fbca):
     return(CAMapCopy)
 
 
-# Above is done #
 
 # Generation of text document representing FBCA # 
 # Input: FBCA, directory, fileName, newFile, justMap
@@ -140,12 +138,11 @@ def generateFBCA(fbca,directory = os.getcwd(),quantifer = "test", saveImages = F
         if (saveImages == True):
             gif.append(genIm(fbca, directory, quantifer, gen = n))
         if (saveText == True):
-            genText(fbca, directory, f"{quantifer}.txt", justMap = True, writeNewFile = False)
+            genText(fbca, directory, f"{directory}/{quantifer}.txt", justMap = True, newFile = False)
         fbca.levelMap=updateMap(fbca)
     if (saveFinalImage == True) or (saveImages == True):
         gif.append(genIm(fbca, directory, quantifer, fbca.g))
         gif[0].save(f"{directory}{quantifer}.gif",save_all=True,append_images=gif[1:],optimize=False,duration=100,loop=0)
     if (saveText == True) or (saveFinalText == True):
-        genText(fbca,directory, f"{quantifer}.txt", justMap = False, writeNewFile = False)
+        genText(fbca,directory, f"{directory}/{quantifer}.txt", justMap = False, newFile = False)
     return(CAMap)
-
