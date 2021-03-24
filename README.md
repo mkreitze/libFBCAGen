@@ -345,7 +345,9 @@ exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
 exFBCA.g = 6
 exFBCA.levelMap = libFBCAGen.generateFBCA(exFBCA,saveFinalImage=True, saveImages= True, saveFinalText = True, quantifer = "generateFBCAExample")
 ```
+
 Output:
-The folder :
+
+[This folder](https://github.com/mkreitze/libFBCAGen/tree/master/resources/generateFBCAExample). 
 
 
