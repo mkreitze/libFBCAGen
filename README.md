@@ -11,7 +11,7 @@ To use, simply download **FBCAConsts.py** and **libFBCAGen.py** to your working 
 
 # Preface
 
-The following is a quick, reproducible and infintely scalable method to generate similar looking videogame level-maps using fashion based cellular automata. Fashion Based Cellular Automata (FBCA) are self organizing structures that are normal cellular automata with a governing rule set known as a score matrix. This score matrix allows a single cell of a FBCA to change its state to a nearby more desirable state by evaluating scores assigned to each cell. Since FBCA exhibit self organizing behaviour which, when they are paired with an inital random state they produce level-maps that have similar local behaviour but different global configurations. FBCA were first defined (here). As a visual, the image below is made by an FBCA. 
+The following is a quick, reproducible and infinitely scalable method to generate similar looking videogame level-maps using fashion based cellular automata. Fashion Based Cellular Automata (FBCA) are self organizing structures that are normal cellular automata with a governing rule set known as a score matrix. This score matrix allows a single cell of a FBCA to change its state to a nearby more desirable state by evaluating scores assigned to each cell. Since FBCA exhibit self organizing behaviour which, when they are paired with an initial random state they produce level-maps that have similar local behaviour but different global configurations. FBCA were first defined (here). As a visual, the image below is made by an FBCA. 
 
 ![A cavern map image](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/niceImage%206.png)
 
@@ -19,7 +19,7 @@ With one or two applications of paintbucket tool in paint, we obtain:
 
 ![A nice level-map](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/niceImage%20recolour.png)
 
-The above map could easily represent a cavern system full of water (represented by blue), open caves (represented by white), some dangerous material (represented by red), valuable ore (represented by black) and exceedingly rare ore (reprsented by green and dark blue). The meaning of each colour in any FBCA is up to the user. The benefit of FBCA if their abiltiy to reproduce local behaviour. Simply changing the inital random state, we get the following similar maps. It should be noted that map takes only a few seconds to generate:
+The above map could easily represent a cavern system full of water (represented by blue), open caves (represented by white), some dangerous material (represented by red), valuable ore (represented by black) and exceedingly rare ore (represented by green and dark blue). The meaning of each colour in any FBCA is up to the user. The benefit of FBCA if their ability to reproduce local behaviour. Simply changing the initial random state, we get the following similar maps. It should be noted that map takes only a few seconds to generate:
 
 ![Another nice map](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/rand1%20recolour.png)
 ![Another nice map](https://github.com/mkreitze/libFBCAGen/blob/master/resources/niceImage/rand2%20recolour.png)
@@ -27,13 +27,13 @@ The above map could easily represent a cavern system full of water (represented 
 
 The following is the library that allows for easy generation and saving of FBCA for level-map generation. It starts by showing FBCAConsts.py, the 'header file' that defines the data structure and default parameters. The library functions (with examples) are shown later.
 
-# Initalizations
+# Initializations
 To properly define a FBCA, five parameters are required. As shown [here](https://atrium.lib.uoguelph.ca/xmlui/handle/10214/21316), these parameters are: 
 - F -> connectivity of each cell in the FBCA (its neighbourhood).
 - g -> the number of updates done to an FBCA before completion 
 - n -> number of states in the FBCA 
 - S -> the score matrix
-- L_0 -> the inital random set of states
+- L_0 -> the initial random set of states
 
 For a 'default' FBCA the following parameters are used:
 ```python
@@ -48,13 +48,13 @@ numOfGens=40 # (g)
 numOfStates=2 # (n)
 scoreMatrix = [1,2,3,4] # (S)
 ```
-It should be noted that the 'connectivity' described by F is too arbtirary to generate efficent code for. To get around this a user can specify the neighbourhood via a list of tuples. Each tuple is the (x,y) offest from the current cell. For example (0,-1) is one below. The neighbourhood is defaulted to its von Neumann neighbourhood: [(-1,0) , (1,0) , (0,-1) , (0,1)] (the cells one above, below, left and right of a cell). 
+It should be noted that the 'connectivity' described by F is too arbitrary to generate efficient code for. To get around this a user can specify the neighbourhood via a list of tuples. Each tuple is the (x,y) offset from the current cell. For example (0,-1) is one below. The neighbourhood is defaulted to its von Neumann neighbourhood: [(-1,0) , (1,0) , (0,-1) , (0,1)] (the cells one above, below, left and right of a cell). 
 
 One might notice L_0 this is due to a lack of data structures and a 'random' generating function.
 
 # FBCA representation  (FBCAConsts.py)
 
-All five previously mentioend paramters are defined as well as L_g. L_g represents what the FBCA looks like after all of its updates are completed. When first initalized L_g (more commonly known as its final image or _resulting level-map_) is L_0. Behavhiour number is used for analysis of FBCAs which is done by this library [libGenAna](https://github.com/mkreitze/libFBCAAna). Thus FBCAs have hte following data structure.
+All five previously mentioned parameters are defined as well as L_g. L_g represents what the FBCA looks like after all of its updates are completed. When first initialized L_g (more commonly known as its final image or _resulting level-map_) is L_0. Behaviour number is used for analysis of FBCAs which is done by this library [libGenAna](https://github.com/mkreitze/libFBCAAna). Thus FBCAs have the following data structure.
 
 ```python
 # FBCA data structure #
@@ -82,7 +82,7 @@ These data structures are used for most work with FBCAs and are contained within
 # Functions
 The functions are in the following order: 
 
-initCA (FBCA initalization)
+initCA (FBCA initialization)
 
 copyOver (Custom copying function for FBCA data structure)
 
@@ -90,23 +90,23 @@ makeFolder
 
 colorConvert 
 
-genIm (image visualziation for FBCA)
+genIm (image visualization for FBCA)
 
 updateFBCA (Updates FBCA once)
 
 genText (text record for FBCA)
 
-generateFBCA (fully generates paramaterized FBCA)
+generateFBCA (fully generates parameterized FBCA)
 
 # initCA
 
-This function fills a FBCA's level-map with states initalized using random's randint function. 
+This function fills a FBCA's level-map with states initialized using random's randint function. 
 
 **Example call:**
 fbca.levelMap = initCA(fbca) 
 
 **Arguments:**
-*fbca*: An initalized FBCA data structure. It does not have to be filled with anything. 
+*fbca*: An initialized FBCA data structure. It does not have to be filled with anything. 
 
 **Outputs:**
 *fbca.levelMap*: A level-map full of random states. 
@@ -131,13 +131,13 @@ print (f"1 -> {exFBCA.levelMap}")
 
 # copyOver
 
-This function is made to copy over a level-map, which is a 2D array of cells, from one location in memeory to another. While a multitude of common copying methods already exist, when implemented the level-maps would fail to copy properly. To get around this, a custom function was made. It is not efficient. 
+This function is made to copy over a level-map, which is a 2D array of cells, from one location in memory to another. While a multitude of common copying methods already exist, when implemented the level-maps would fail to copy properly. To get around this, a custom function was made. It is not efficient. 
 
 **Example call:**
 fbca2.levelMap = copyOver(fbca1)
 
 **Arguments:**
-*fbca*: An FBCA whose cellular automata has been initalized with states.  
+*fbca*: An FBCA whose cellular automata has been initialized with states.  
 
 **Output:**
 *CAMap*: A new data structure containing the same level-map as the input FBCA.
@@ -169,7 +169,7 @@ print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}")
 
 # makeFolder
 
-A function that generates a folder provided it doesnt already exist and the path is attinable. 
+A function that generates a folder provided it doesn’t already exist and the path is attainable. 
 
 **Example call:**
 makeFolder(directory)
@@ -215,7 +215,7 @@ genIm visualizes FBCA as an image. This is done through converting each state in
 genIm(exFBCA,quantifer = "/genIm")
 
 **Argument:**
-*fbca*: The desired FBCA to be visualized. Ideally this is initalized
+*fbca*: The desired FBCA to be visualized. Ideally this is initialized
 
 *directory*: The desired location of the image. Defaults to the current working directory. **Do not forget to add /'s accordingly**
 
@@ -246,13 +246,13 @@ The following image is saved into the folder 'genIm' in the current working dire
 
 # updateMap
 
-updateMap takes an existing FBCA and goes through one discrete time step. The updating function is mathematicall defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The updating function occurs in three steps, first each score is determined. Then the levelmap is copied. The original levelmap is searched for highest scoring neighbours and states of the copied map are changed. This updated copy is then returned.
+updateMap takes an existing FBCA and goes through one discrete time step. The updating function is mathematical defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The updating function occurs in three steps, first each score is determined. Then the level-map is copied. The original level-map is searched for highest scoring neighbours and states of the copied map are changed. This updated copy is then returned.
 
 **Example call:**
 fbca.levelMap = updateMap(fbca)
 
 **Argument:**
-*fbca*: The FBCA driving the update. It is assumed to be initalized. 
+*fbca*: The FBCA driving the update. It is assumed to be initialized. 
 
 **Output:**
 *CAMapCopy*: The updated list of states that represent the level-map
@@ -293,13 +293,13 @@ genText(exFBCA,fileName = "genTextExample.txt")
 **Argument:**
 *fbca*: The FBCA to be recorded as text
 
-*directory*: File directory to save to . Defaults to the current working directory. **Do not forget to add /'s accordingly**
+*directory*: File directory to save to. Defaults to the current working directory. **Do not forget to add /'s accordingly**
 
 *fileName*: Name of generated text file 
 
 *newFile*: Boolean, if true, the old file will be written over. Defaults to true.
 
-*justMap*: Boolean, if true, only the states of the level-map wil be recorded. Defaults to false.
+*justMap*: Boolean, if true, only the states of the level-map will be recorded. Defaults to false.
 
 *noMap*: Boolean, if true, the states of the level-map will not be recorded. Defaults to false.
 
@@ -337,12 +337,12 @@ exFBCA.levelMap = generateFBCA(exFBCA,saveFinalImage=True, saveImages= True, sav
 
 *saveText*: Boolean, if true, saves each update as an integer string to text file. Defaulted to false.
 
-*saveFinalText*: Boolean, if true, saves final update as an integer string and saves the FBCA paramters to text. Defaulted to false.
+*saveFinalText*: Boolean, if true, saves final update as an integer string and saves the FBCA parameters to text. Defaulted to false.
 
 **Output:**
 *CAMap*: The final level-map from the FBCA run to its number of generations.
 
-This function takes a _assumed to be initalized_ FBCA and fully generates it. It allows for it to be recorded through each update either as text or png image.   
+This function takes a _assumed to be initialized_ FBCA and fully generates it. It allows for it to be recorded through each update either as text or png image.   
 
 **Example code**
 ```python
@@ -369,7 +369,7 @@ Output:
 # Input: An FBCA 
 # Output: A level-map pseudo-random collection of states
 def initCA(fbca):
-    #Fills in downward stripes as we interate x then y
+    #Fills in downward stripes as we iterate x then y
     for x in range(0,fbca.torusLength):
         holder=[] #downward column at the x value
         for y in range(0,fbca.torusWidth):
