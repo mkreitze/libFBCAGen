@@ -1,11 +1,12 @@
 # How to use
 
 The following libraries are required to use this library for map generation: 
-Python 3
-PIL (python image library)
-os (operating system library)
-time 
-random 
+
+Python 3<br />
+PIL (python image library)<br />
+os (operating system library)<br />
+time <br />
+random <br />
 
 To use, simply download **FBCAConsts.py** and **libFBCAGen.py** to your working directory. From here use normal import commands to access any functions and data structures. Within this git (as well as in this readme) there are a variety of example codes. Below is preface of what this package can do.
 
@@ -29,11 +30,12 @@ The following is the library that allows for easy generation and saving of FBCA 
 
 # Initializations
 To properly define a FBCA, five parameters are required. As shown [here](https://atrium.lib.uoguelph.ca/xmlui/handle/10214/21316), these parameters are: 
-- F -> connectivity of each cell in the FBCA (its neighbourhood).
-- g -> the number of updates done to an FBCA before completion 
-- n -> number of states in the FBCA 
-- S -> the score matrix
-- L_0 -> the initial random set of states
+
+- F -> connectivity of each cell in the FBCA (its neighbourhood)<br />
+- g -> the number of updates done to an FBCA before completion<br />
+- n -> number of states in the FBCA<br />
+- S -> the score matrix<br />
+- L_0 -> the initial random set of states<br />
 
 For a 'default' FBCA the following parameters are used:
 ```python
@@ -82,33 +84,29 @@ These data structures are used for most work with FBCAs and are contained within
 # Functions
 The functions are in the following order: 
 
-initCA (FBCA initialization)
-
-copyOver (Custom copying function for FBCA data structure)
-
-makeFolder 
-
-colorConvert 
-
-genIm (image visualization for FBCA)
-
-updateFBCA (Updates FBCA once)
-
-genText (text record for FBCA)
-
-generateFBCA (fully generates parameterized FBCA)
+initCA (FBCA initialization)<br />
+copyOver (Custom copying function for FBCA data structure)<br />
+makeFolder<br />
+colorConvert<br />
+genIm (image visualization for FBCA)<br />
+updateFBCA (Updates FBCA once)<br />
+genText (text record for FBCA)<br />
+generateFBCA (fully generates parameterized FBCA)<br />
 
 # initCA
 
 This function fills a FBCA's level-map with states initialized using random's randint function. 
 
 **Example call:**
+
 fbca.levelMap = initCA(fbca) 
 
 **Arguments:**
+
 *fbca*: An initialized FBCA data structure. It does not have to be filled with anything. 
 
 **Outputs:**
+
 *fbca.levelMap*: A level-map full of random states. 
 
 **Example (initCAExample.py)**
@@ -134,12 +132,15 @@ print (f"1 -> {exFBCA.levelMap}")
 This function is made to copy over a level-map, which is a 2D array of cells, from one location in memory to another. While a multitude of common copying methods already exist, when implemented the level-maps would fail to copy properly. To get around this, a custom function was made. It is not efficient. 
 
 **Example call:**
+
 fbca2.levelMap = copyOver(fbca1)
 
 **Arguments:**
+
 *fbca*: An FBCA whose cellular automata has been initialized with states.  
 
 **Output:**
+
 *CAMap*: A new data structure containing the same level-map as the input FBCA.
 
 **Example (copyOverExample.py)**
@@ -172,12 +173,15 @@ print (f"1 -> {exFBCA1.levelMap}"); print (f"2 -> {exFBCA2.levelMap}")
 A function that generates a folder provided it doesn’t already exist and the path is attainable. 
 
 **Example call:**
+
 makeFolder(directory)
 
 **Argument:**
+
 *directory*: Name of folder to be generated. **Do not forget to add /'s accordingly**
 
 **Output:**
+
 A folder of the name given in the current directory.
 
 
@@ -197,12 +201,15 @@ A file named test appears in the same folder testCode.py is.
 This is a simple switch function that returns a RGB tuple given an integer. The integer expected to be inputted in the state of a cell. For most applications, the first state is considered 'white space' in function of level-map generation, therefore changing this colour may yield nonsensical maps.
 
 **Example call:**
+
 colour = colourConvert(fBCA.levelMap[x][y].state)
 
 **Argument:**
+
 *x*: The state of a cell represented as an integer.
 
 **Output:**
+
 *x*: A RGB tuple represented as three integers. 
 
 Due to this codes simplicity, no example code or output is shown.
@@ -212,9 +219,11 @@ Due to this codes simplicity, no example code or output is shown.
 genIm visualizes FBCA as an image. This is done through converting each state into a colour for a png image using colourConvert. To generate the image, the PIL library is used. 
 
 **Example call:**
+
 genIm(exFBCA,quantifer = "/genIm")
 
 **Argument:**
+
 *fbca*: The desired FBCA to be visualized. Ideally this is initialized
 
 *directory*: The desired location of the image. Defaults to the current working directory. **Do not forget to add /'s accordingly**
@@ -225,6 +234,7 @@ genIm(exFBCA,quantifer = "/genIm")
 
 
 **Output:**
+
 *im*: A RGB tuple represented as three integers. 
 
 
@@ -249,12 +259,15 @@ The following image is saved into the folder 'genIm' in the current working dire
 updateMap takes an existing FBCA and goes through one discrete time step. The updating function is mathematical defined as, [this hard to read thing](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/update%20function.png). In more common terms, a cell takes the state of its highest scoring neighbour. The updating function occurs in three steps, first each score is determined. Then the level-map is copied. The original level-map is searched for highest scoring neighbours and states of the copied map are changed. This updated copy is then returned.
 
 **Example call:**
+
 fbca.levelMap = updateMap(fbca)
 
 **Argument:**
+
 *fbca*: The FBCA driving the update. It is assumed to be initialized. 
 
 **Output:**
+
 *CAMapCopy*: The updated list of states that represent the level-map
 
 **Example code**
@@ -273,11 +286,11 @@ for n in range(totalNumOfGens):
 Output:
 The following level-map visualizations are produced: 
 
-![L0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%200.png)
-![L1](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%201.png)
-![L2](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%202.png)
-![L3](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%203.png)
-![L4](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%204.png)
+![L0](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%200.png)<br />
+![L1](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%201.png)<br />
+![L2](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%202.png)<br />
+![L3](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%203.png)<br />
+![L4](https://raw.githubusercontent.com/mkreitze/libFBCAGen/master/resources/updateMap%204.png)<br />
 
 # genText
 
@@ -288,22 +301,19 @@ sMs{fbca.scoreMatrix}g{fbca.g}n{fbca.n}w{fbca.torusWidth}l{fbca.torusLength}neig
 then records the g (updates), n (number of states), torus width, torus length and each cells neighbourhood.
 
 **Example call:**
+
 genText(exFBCA,fileName = "genTextExample.txt")
 
 **Argument:**
-*fbca*: The FBCA to be recorded as text
 
-*directory*: File directory to save to. Defaults to the current working directory. **Do not forget to add /'s accordingly**
+*fbca*: The FBCA to be recorded as text<br />
+*directory*: File directory to save to. Defaults to the current working directory. **Do not forget to add /'s accordingly**<br />
+*fileName*: Name of generated text file<br />
+*newFile*: Boolean, if true, the old file will be written over. Defaults to true.<br />
+*justMap*: Boolean, if true, only the states of the level-map will be recorded. Defaults to false.<br />
+*noMap*: Boolean, if true, the states of the level-map will not be recorded. Defaults to false.<br />
 
-*fileName*: Name of generated text file 
-
-*newFile*: Boolean, if true, the old file will be written over. Defaults to true.
-
-*justMap*: Boolean, if true, only the states of the level-map will be recorded. Defaults to false.
-
-*noMap*: Boolean, if true, the states of the level-map will not be recorded. Defaults to false.
-
-Output:
+**Output:**
 A textfile named "fileName" in the specified directory (or current working directory if not specified)
 
 **Example code**
@@ -316,30 +326,27 @@ exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
 exFBCA.g = 6
 libFBCAGen.genText(exFBCA,fileName = "genTextExample.txt")
 ```
-Output: 
+**Output:** 
 The following [text file](https://github.com/mkreitze/libFBCAGen/blob/master/resources/genTextExample/genTextExample.txt). 
 
 # generateFBCA
 
 **Example call:**
+
 exFBCA.levelMap = generateFBCA(exFBCA,saveFinalImage=True, saveImages= True, saveFinalText = True, quantifer = "generateFBCAExample")
 
 **Argument:**
-*fbca*: The FBCA to be visualized and recorded
 
-*directory*: The directory all files will be saved to. Defaulted to current working directory.
-
-*quantifer*: The starting name of each file. Defaulted to 'test'
-
-*saveImages*: Boolean, if true, pngs of each update will be saved. Defaulted to False.
-
-*saveFinalImages*: Boolean, if true, saves a gif of all updates strung together. Defaulted to false.
-
-*saveText*: Boolean, if true, saves each update as an integer string to text file. Defaulted to false.
-
-*saveFinalText*: Boolean, if true, saves final update as an integer string and saves the FBCA parameters to text. Defaulted to false.
+*fbca*: The FBCA to be visualized and recorded<br />
+*directory*: The directory all files will be saved to. Defaulted to current working directory.<br />
+*quantifer*: The starting name of each file. Defaulted to 'test'<br />
+*saveImages*: Boolean, if true, pngs of each update will be saved. Defaulted to False.<br />
+*saveFinalImages*: Boolean, if true, saves a gif of all updates strung together. Defaulted to false.<br />
+*saveText*: Boolean, if true, saves each update as an integer string to text file. Defaulted to false.<br />
+*saveFinalText*: Boolean, if true, saves final update as an integer string and saves the FBCA parameters to text. Defaulted to false.<br />
 
 **Output:**
+
 *CAMap*: The final level-map from the FBCA run to its number of generations.
 
 This function takes a _assumed to be initialized_ FBCA and fully generates it. It allows for it to be recorded through each update either as text or png image.   
