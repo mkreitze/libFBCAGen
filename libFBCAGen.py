@@ -149,4 +149,62 @@ def generateFBCA(fbca,directory = os.getcwd(),quantifer = "test", saveImages = F
         genText(fbca,directory, f"{directory}/{quantifer}.txt", justMap = False, newFile = False)
     return(CAMap)
 
-# reads a score matrix from text
+
+
+# Generation of FBCA from text file
+# Input: previously outputted text file 
+# Output: System stores FBCA from text file
+def readFBCA(fileName):
+    listOfFBCAs = []
+    temp = []
+    f = open(fileName)
+    for idx,line in enumerate(f):
+        if line[0] == 's': # if true, we have a string looking like: sMs[0, 0.5, 0.2, 0.6]g6n2w100l100neighbours[(0, 1), (0, -1), (-1, 0), (1, 0)]
+            listOfFBCAs.append(FBCAConsts.Fbca())
+            # this blocks adds in g by cutting it at after the g and before the n
+            # this is similarly done for all other integers.
+            temp = line.split('g')[1]
+            temp = temp.split('n')[0]
+            listOfFBCAs[-1].g = int(temp)
+            temp = line.split('n')[1]
+            temp = temp.split('w')[0]
+            listOfFBCAs[-1].n = int(temp)
+            temp = line.split('w')[1]
+            temp = temp.split('l')[0]
+            listOfFBCAs[-1].torusWidth = int(temp)
+            temp = line.split('l')[1]
+            temp = temp.split('n')[0]
+            listOfFBCAs[-1].torusLength = int(temp)
+            # since reading tuples/lists is more annoying I made custom functions
+            listOfFBCAs[-1].scoreMatrix = readScoreMatrix(line)
+            listOfFBCAs[-1].neighbourhood = readNeighbourHood(line)
+    return(listOfFBCAs)
+
+# Generation of score matrix from stored text file
+# Input: FBCA line (example [0, 0.5, 0.2, 0.6]g6n2w100l100neighbours[(0, 1), (0, -1), (-1, 0), (1, 0)]) 
+# Output: Score matrix stored as 1D list [0.0, 0.5, 0.2, 0.6]
+def readScoreMatrix(string):
+    string=string.split('sMs')[1]
+    string=string.split("]")[0]
+    string=string.split(",")
+    string[0]=string[0].split("[")[1]
+    string=[float(i) for i in string]
+    return(string)
+
+# Generation of neighbourhood from stored text file
+# Input: FBCA line (example [0, 0.5, 0.2, 0.6]g6n2w100l100neighbours[(0, 1), (0, -1), (-1, 0), (1, 0)]) 
+# Output: Neighbourhood, 1D list of tuples [(0, 1), (0, -1), (-1, 0), (1, 0)]
+def readNeighbourHood(string):
+    newString = []
+    num1 = 0
+    num2 = 0
+    string=string.split('neighbours')[1]
+    string=string.split(' ')
+    for n in range(0,len(string),2):
+        temp = string[n].split('(')[1]
+        temp = temp.split(',')[0]
+        num1 = int(temp)
+        temp = string[n+1].split(')')[0]
+        num2 = int(temp)
+        newString.append((num1,num2))
+    return(newString)
