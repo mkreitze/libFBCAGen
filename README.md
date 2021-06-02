@@ -366,8 +366,52 @@ Output:
 
 [This folder](https://github.com/mkreitze/libFBCAGen/tree/master/resources/generateFBCAExample). 
 
-#should add FBCA reader from text file
-#should add genFromSM function
+
+# readFBCA
+
+This function takes a (hopefully) textfile that has been produced by the genText function. It then reads it in but ignores any generated maps. This functionality may be added later. 
+
+**Example call:**
+listOfFBCAs = libFBCAGen.readFBCA(fileToReadFrom)
+
+**Argument:**
+*fileName*: The name of the (hopefully) textfile that stores the FBCA <br />
+
+**Example code**
+```python
+import FBCAConsts
+import libFBCAGen
+# generate a text file
+exFBCA = FBCAConsts.Fbca()
+exFBCA.scoreMatrix = [0,0.5,0.2,0.6]
+exFBCA.levelMap = libFBCAGen.initCA(exFBCA)
+exFBCA.g = 6
+libFBCAGen.genText(exFBCA,fileName = "readTextExample.txt")
+# read from text
+fileToReadFrom = "readTextExample.txt"
+listOfFBCAs = libFBCAGen.readFBCA(fileToReadFrom)
+print(listOfFBCAs[0].g)
+print(listOfFBCAs[0].n)
+print(listOfFBCAs[0].torusWidth)
+print(listOfFBCAs[0].torusLength)
+print(listOfFBCAs[0].scoreMatrix)
+print(listOfFBCAs[0].neighbourhood)
+# output
+libFBCAGen.generateFBCA(exFBCA,quantifer = "/original",saveImages = True)
+libFBCAGen.generateFBCA(listOfFBCAs[0],quantifer = "/new",saveImages = True)
+```
+**Output:**
+``` shell
+6
+2
+100
+100
+[0.0, 0.5, 0.2, 0.6]
+[(0, 1), (0, -1), (-1, 0), (1, 0)]
+```
+And the following two FBCAs: 
+![new](https://github.com/mkreitze/libFBCAGen/blob/master/resources/readTextExample/new.gif)<br />
+![original](https://github.com/mkreitze/libFBCAGen/blob/master/resources/readTextExample/original.gif)<br />
 
 **Code of all functions: (idk if i should keep)**
 
@@ -400,6 +444,7 @@ def copyOver(fbca):
         CAMap.append(holder)
     return(CAMap)
 ```
+
 **makeFolder**
 ```python
 ### Input: Name of a folder we want to make
@@ -512,3 +557,5 @@ def generateFBCA(fbca,directory = os.getcwd(),quantifer = "test", saveImages = F
         genText(fbca,directory, f"{directory}/{quantifer}.txt", justMap = False, newFile = False)
     return(CAMap)
 ```
+
+
