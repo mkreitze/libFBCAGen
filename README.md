@@ -410,6 +410,7 @@ libFBCAGen.generateFBCA(listOfFBCAs[0],quantifer = "/new",saveImages = True)
 [(0, 1), (0, -1), (-1, 0), (1, 0)]
 ```
 And the following two FBCAs: 
+
 ![new](https://github.com/mkreitze/libFBCAGen/blob/master/resources/readTextExample/new.gif)<br />
 ![original](https://github.com/mkreitze/libFBCAGen/blob/master/resources/readTextExample/original.gif)<br />
 
